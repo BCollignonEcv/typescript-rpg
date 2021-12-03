@@ -1,9 +1,10 @@
 import Champion from "./champion.class";
+import { ChampionType } from "./championtype.enum";
 
 export default class Witcher extends Champion {
 
   constructor(name: string, health: number, type: ChampionType, protection: boolean) {
-    super(name, health, ChampionType, protection);
+    super(name, health, type, protection);
   }
 
   attack(enemy: Champion): void {
