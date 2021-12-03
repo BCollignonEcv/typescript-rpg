@@ -1,0 +1,30 @@
+{
+    "name": "typescript-rpg",
+    "version": "1.0.0",
+    "description": "Create RPG game with unit test",
+    "main": "index.ts",
+    "scripts": {
+        "test": "jest --coverage --watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/BCollignonEcv/typescript-rpg.git"
+    },
+    "keywords": [
+        "typescript",
+        "jest"
+    ],
+    "author": "Baptiste Collignon, Gauthier Maire, Vincent Manachem",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/BCollignonEcv/typescript-rpg/issues"
+    },
+    "homepage": "https://github.com/BCollignonEcv/typescript-rpg#readme",
+    "devDependencies": {
+        "ts-node": "^10.4.0",
+        "typescript": "^4.5.2",
+        "@types/jest": "^27.0.3",
+        "ts-jest": "^27.0.7",
+        "jest": "^27.4.3"
+    }
+}
