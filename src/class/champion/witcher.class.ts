@@ -28,6 +28,10 @@ export default class Witcher extends Champion {
     this.protection = true;
   }
 
+  toHeal(): void {
+    this.health += 30;
+  }
+
 
   // TODO : Methode pour se soigner
   // régénère x de vie
