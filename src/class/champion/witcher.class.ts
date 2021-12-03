@@ -27,9 +27,5 @@ export default class Witcher extends Champion {
   protect(): void {
     this.protection = true;
   }
-
-
-  // TODO : Methode pour se soigner
-  // régénère x de vie
     
 }

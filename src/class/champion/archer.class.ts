@@ -24,11 +24,13 @@ export default class Archer extends Champion {
     }
   }
 
+  attackTwice(enemy: Champion): void {
+    this.attack(enemy);
+    this.attack(enemy);
+  }
+
   protect(): void {
     this.protection = true;
   }
-
-
-  // TODO : Methode attaquer 2 fois de suite
     
 }
