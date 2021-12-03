@@ -27,5 +27,9 @@ export default class Witcher extends Champion {
   protect(): void {
     this.protection = true;
   }
+
+  toHeal(): void {
+    this.health += 30;
+  }
     
 }
