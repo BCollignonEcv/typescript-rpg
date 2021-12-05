@@ -2,13 +2,11 @@ import IChampion from "./champion.interface";
 import { ChampionType } from "./championtype.enum";
 
 export default class Champion implements IChampion{
-    name: string;
     health: number;
     type: ChampionType;
     protection: boolean;
 
-    constructor(name: string, type: ChampionType, health: number, protection: boolean) {
-        this.name = name;
+    constructor(type: ChampionType, health: number, protection: boolean) {
         this.type= type;
         this.health = health;
         this.protection = protection;
