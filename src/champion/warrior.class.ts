@@ -12,7 +12,7 @@ export default class Warrior extends Champion {
       if (enemy.protection == false) {
         enemy.health -= 100;
       } else {
-        if (enemy.type != ChampionType.Warrior) {
+        if (enemy.type == ChampionType.Warrior) {
           // pas de dégât
           enemy.health -= 0;
         } else {

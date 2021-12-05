@@ -4,7 +4,8 @@
     "description": "Create RPG game with unit test",
     "main": "index.ts",
     "scripts": {
-        "test": "jest --coverage --watch"
+        "start": "ts-node sample.ts",
+        "test": "jest --coverage"
     },
     "repository": {
         "type": "git",
