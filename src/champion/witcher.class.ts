@@ -4,7 +4,7 @@ import { ChampionType } from "./championtype.enum";
 export default class Witcher extends Champion {
 
   constructor() {
-    super(120);
+    super(100, 30);
   }
 
   setHeal(): void {

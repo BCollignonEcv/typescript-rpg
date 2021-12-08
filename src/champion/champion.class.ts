@@ -19,7 +19,9 @@ export default class Champion implements IChampion{
     }
 
     setAttack(enemy: Champion): void {
-        enemy.isAttacked(this.attackDamage)
+        if (enemy.health > 0) {
+            enemy.isAttacked(this.attackDamage)
+        }
     }
 
     setHeal(): void {

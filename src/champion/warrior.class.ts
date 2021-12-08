@@ -4,7 +4,7 @@ import { ChampionType } from "./championtype.enum";
 export default class Warrior extends Champion {
 
   constructor() {
-    super(150, 30);
+    super(100, 40);
   }
 
   isAttacked(damage: number): void{
