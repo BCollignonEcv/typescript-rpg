@@ -1,26 +1,89 @@
 import Archer from "../champion/archer.class";
 import Champion from "../champion/champion.class";
+import {ChampionType} from "../champion/championtype.enum";
+import {ChampionActionType} from "../champion/championActionType.enum";
 import Warrior from "../champion/warrior.class";
 import Witcher from "../champion/witcher.class";
 import IPlayer from "./player.interface";
+const inquirer = require('inquirer');
 
 
 export default class Player implements IPlayer{
-    type: Champion = new Champion();
     name: string = "";
     order: number;
-    point: number;
+    champion: Champion = new Champion();
 
     constructor(order: number){
         this.order = order;
-        this.point = 10;
     }
 
-    giveName(name: string){
-        this.name = name;
+    async play(): Promise<string>{
+        await inquirer
+            .prompt([
+                {
+                type: 'list',
+                name: 'action',
+                choices: ToArray(ChampionActionType),
+                },
+            ])
+            .then((answers: any) => {
+                return answers;
+            }).catch((error: any) => {
+                return `error : ${error}`;
+            });
+        return 'error : undefine';
     }
 
-    selectChampion(champion: Champion){
-        this.type = champion;
+    async setPlayer() :Promise<void>{
+        await this.setName().then(async () => { 
+            await this.setChampion(); 
+        });
     }
+
+    async setName() :Promise<void>{
+        await inquirer
+            .prompt([
+                {
+                name: 'playerName',
+                message: 'Nom du joueur :'
+                },
+            ])
+            .then((answers: any) => {
+                this.name = toCapitalize(answers.playerName);
+            });
+    }
+
+    async setChampion() :Promise<void>{
+        await inquirer
+            .prompt([
+                {
+                type: 'list',
+                name: 'champion',
+                message: 'Quel champion veux-tu jouer :',
+                choices: ToArray(ChampionType),
+                },
+            ])
+            .then((answers: any) => {
+                switch(answers.champion){
+                    case 'Warrior': 
+                        this.champion = new Warrior()
+                    case 'Archer': 
+                        this.champion = new Archer()
+                    case 'Witcher': 
+                        this.champion = new Witcher()
+                } 
+            });
+    }
+}
+const StringIsNumber = (value: any) => (isNaN(Number(value)) === false);
+
+function ToArray(enumme : any) {
+    return Object.keys(enumme)
+        .filter(StringIsNumber)
+        .map(key => enumme[key]);
+}
+
+function toCapitalize(text: string): string{
+    const lower = text.toLowerCase();
+    return text.charAt(0).toUpperCase() + lower.slice(1);
 }

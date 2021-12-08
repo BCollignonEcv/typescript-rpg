@@ -3,6 +3,9 @@ import Champion from "./champion.class";
 
 
 export default interface IChampion {
-    protect(): void;
-    attack(ennemy: Champion): void;
+    setProtection(): void;
+    setAttack(ennemy: Champion): void;
+    isProtected(): boolean;
+    isDead(damage: number): boolean;
+    isAttacked(damage: number): void;
 }

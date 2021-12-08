@@ -3,34 +3,16 @@ import { ChampionType } from "./championtype.enum";
 
 export default class Archer extends Champion {
 
-  constructor(name: string, health: number, type: ChampionType, protection: boolean) {
-    super(name, health, type, protection);
+  constructor() {
+    super(80, 20)
   }
 
-  attack(enemy: Champion): void {
-    if (enemy.health > 0) {
-      if (enemy.protection == false) {
-        enemy.health -= 100;
-      } else {
-        if (enemy.type == ChampionType.Warrior) {
-          // pas de dégât
-          enemy.health -= 0;
-        } else {
-          // dégâts / 2
-          enemy.health -= 50;
-        }
-        enemy.protection = false;
-      }
-    }
-  }
+  setAttack(enemy: Champion): void {
+      enemy.isAttacked(this.attackDamage)
+      enemy.isAttacked(this.attackDamage)
+  } 
 
-  attackTwice(enemy: Champion): void {
-    this.attack(enemy);
-    this.attack(enemy);
+  isType(){
+      return ChampionType.Archer;
   }
-
-  protect(): void {
-    this.protection = true;
-  }
-    
 }
