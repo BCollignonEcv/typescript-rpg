@@ -8,7 +8,7 @@ export default class Witcher extends Champion {
   }
 
   setHeal(): void {
-    this.health += 50;
+    this.health += 20;
   }
 
   isType(){

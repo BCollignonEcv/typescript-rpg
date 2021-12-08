@@ -52,6 +52,8 @@ export default class Champion implements IChampion{
         }
         if(this.isDying(damage)){
             this.health = 0;
+        } else {
+            this.health -= damage;
         }
         console.log(`isAttacked : ${damage}`)
         this.health = this.health - damage;

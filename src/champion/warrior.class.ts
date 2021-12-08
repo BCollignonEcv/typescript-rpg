@@ -10,11 +10,13 @@ export default class Warrior extends Champion {
   isAttacked(damage: number): void{
       if(this.isProtected()){
           damage = 0;
+          this.protection = false;
       }
       if(this.isDying(damage)){
           this.health = 0;
+      } else {
+        this.health -= damage;
       }
-      this.health -= damage;
   }
 
   isType(){
