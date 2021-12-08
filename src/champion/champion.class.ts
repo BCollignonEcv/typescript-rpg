@@ -1,35 +1,61 @@
 import IChampion from "./champion.interface";
 import { ChampionType } from "./championtype.enum";
 
+
 export default class Champion implements IChampion{
     health: number;
-    type: ChampionType;
-    protection: boolean;
+    protection: boolean = false;
+    attackDamage: number;
+    dead: boolean = false;
 
-    constructor(type: ChampionType, health: number, protection: boolean) {
-        this.type= type;
-        this.health = health;
-        this.protection = protection;
+
+    constructor( health?: number, attackDamage?: number ) {
+        this.health = health ? health : 100;
+        this.attackDamage = attackDamage ? attackDamage : 20;
     }
 
-    protect(): void {
+    setProtection(): void {
         this.protection = true;
     }
 
-    attack(enemy: Champion): void {
-        if (enemy.health > 0) {
-            if (enemy.protection == false) {
-                enemy.health -= 100;
-            } else {
-                if (enemy.type == ChampionType.Warrior) {
-                    // pas de dégât
-                    enemy.health -= 0;
-                } else {
-                    // dégâts / 2
-                    enemy.health -= 50;
-                }
-                enemy.protection = false;
-            }
+    setAttack(enemy: Champion): void {
+        enemy.isAttacked(this.attackDamage)
+    }
+
+    setHeal(): void {
+        return;
+    }
+
+    isProtected() :boolean{
+        return this.protection;
+    }
+
+    isDead(): boolean{
+        return this.dead;
+    }
+
+    isDying(damage: number): boolean{
+        if(this.health - damage <= 0){
+            this.dead = true;
+            return true;
+        }else{
+            return false;
         }
+    }
+
+    isAttacked(damage: number): void{
+        if(this.isProtected()){
+            damage = damage / 2;
+            this.protection = false;
+        }
+        if(this.isDying(damage)){
+            this.health = 0;
+        }
+        console.log(`isAttacked : ${damage}`)
+        this.health = this.health - damage;
+    }
+
+    isType(): ChampionType{
+        return ChampionType.Warrior;
     }
 }
