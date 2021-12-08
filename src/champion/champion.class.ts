@@ -35,7 +35,7 @@ export default class Champion implements IChampion{
     }
 
     isDying(damage: number): boolean{
-        if(this.health - damage < 0){
+        if(this.health - damage <= 0){
             this.dead = true;
             return true;
         }else{
@@ -46,11 +46,13 @@ export default class Champion implements IChampion{
     isAttacked(damage: number): void{
         if(this.isProtected()){
             damage = damage / 2;
+            this.protection = false;
         }
         if(this.isDying(damage)){
             this.health = 0;
         }
-        this.health -= damage;
+        console.log(`isAttacked : ${damage}`)
+        this.health = this.health - damage;
     }
 
     isType(): ChampionType{

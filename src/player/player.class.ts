@@ -17,7 +17,13 @@ export default class Player implements IPlayer{
         this.order = order;
     }
 
-    async play(): Promise<string>{
+    async setPlayer() :Promise<void>{
+        await this.setName().then(async () => { 
+            await this.setChampion(); 
+        });
+    }
+
+    async play(enemy: Champion): Promise<void | string>{
         await inquirer
             .prompt([
                 {
@@ -26,18 +32,22 @@ export default class Player implements IPlayer{
                 choices: ToArray(ChampionActionType),
                 },
             ])
-            .then((answers: any) => {
-                return answers;
-            }).catch((error: any) => {
+            .then((answer: any) => {
+                switch(answer.action){
+                    case 'Attack':
+                        this.champion.setAttack(enemy);
+                        break;
+                    case 'Defend': 
+                        this.champion.setProtection();
+                        break;
+                    case 'Heal': 
+                        this.champion.setHeal();
+                        break;
+                    default:
+                }})
+            .catch((error: any) => {
                 return `error : ${error}`;
             });
-        return 'error : undefine';
-    }
-
-    async setPlayer() :Promise<void>{
-        await this.setName().then(async () => { 
-            await this.setChampion(); 
-        });
     }
 
     async setName() :Promise<void>{
@@ -67,10 +77,13 @@ export default class Player implements IPlayer{
                 switch(answers.champion){
                     case 'Warrior': 
                         this.champion = new Warrior()
+                        break;
                     case 'Archer': 
                         this.champion = new Archer()
+                        break;
                     case 'Witcher': 
                         this.champion = new Witcher()
+                        break;
                 } 
             });
     }

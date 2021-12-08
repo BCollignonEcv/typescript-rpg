@@ -8,11 +8,13 @@ export default class Game implements IGame{
     gameName: String = "";
     players: Array<Player>;
     currentPlayer: Player;
+    nextPlayer: Player;
     roundNumber: number;
 
     constructor(){
         this.players = [new Player(1), new Player(2)];
         this.currentPlayer = this.players[0];
+        this.nextPlayer = this.players[1];
         this.roundNumber = 0;
         this.initGame().then( async() => {
             for (const [index, player] of this.players.entries()) {
@@ -23,7 +25,7 @@ export default class Game implements IGame{
         });
     }
 
-    async initGame(){
+    async initGame() :Promise<void>{
         await inquirer
             .prompt([
                 {
@@ -36,59 +38,37 @@ export default class Game implements IGame{
             });
     }
 
-    start(){
+    start() :void{
         console.log(setCmdTitle(`La partie commence !`, 2));
-        while (!checkIfPlayerIsDead(this.players)){
-            if(this.roundNumber > 10){
-                return this.end();
-            }else{
-                this.round()
-            }
-        }
-        let tmp = checkIfPlayerIsDead(this.players);
-        if(!tmp){
-            this.end();
-        }else{
-            console.log('error')
-        }
-    }
-
-    async round(){
-        this.roundNumber++;
-        await this.currentPlayer.play().then(async (action: any) => {
-            switch(action){
-                case 'Attack': 
-                    if(this.currentPlayer.order === 1){
-                        this.players[0].champion.setAttack(this.players[1].champion);
-                    }else{
-                        this.players[1].champion.setAttack(this.players[0].champion);
-                    }
-                case 'Defend': 
-                    this.currentPlayer.champion.setProtection();
-                case 'Heal': 
-                    this.currentPlayer.champion.setHeal();
-                default:
-                    this.end();
-            }
-            this.switchPlayer();
-        });
+        this.round()
     }
 
     end(){
         var deadPlayer = checkIfPlayerIsDead(this.players);
         if(deadPlayer != false){
-            return console.log(setCmdTitle(`La partie est terminé ! ${deadPlayer} est mort`, 2));
+            return console.log(setCmdTitle(`La partie est terminé ! ${deadPlayer.name} est mort`, 2));
         }else{
             return console.log(setCmdTitle(`La partie est terminé, une erreur est survenue`, 2));
         }
     }
 
+    async round() :Promise<void>{
+        console.log(setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1))
+        this.roundNumber++;
+        await this.currentPlayer.play(this.nextPlayer.champion).then(() => {
+            if(!checkIfPlayerIsDead(this.players)){
+                this.switchPlayer();
+                this.round()
+            }else{
+                return this.end();
+            }
+        })
+    }
+
     switchPlayer(){
-        if(this.currentPlayer = this.players[0]){
-            this.currentPlayer = this.players[1];
-        }else if(this.currentPlayer = this.players[1]){
-            this.currentPlayer = this.players[0]
-        }
+        var tmpChampion = this.currentPlayer;
+        this.currentPlayer = this.nextPlayer;
+        this.nextPlayer = tmpChampion;
     }
 }
 
