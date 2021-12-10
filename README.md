@@ -2,7 +2,7 @@
 
 ## Groupe 
 - Vincent Manachem
-- Gauthier Maire
+- Gautier Maire
 - Baptiste COLLIGNON
 
 ## How it work's
