@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 
 
 
-export default class{
+export default class {
     gameName: String = "";
     players: Array<Player>;
     currentPlayer: Player;
@@ -24,7 +24,7 @@ export default class{
         });
     }
 
-    async initGame() :Promise<void>{
+    async initGame(): Promise<void> {
         await inquirer
             .prompt([
                 {
@@ -37,56 +37,56 @@ export default class{
             });
     }
 
-    start() :void{
+    start(): void {
         console.log(setCmdTitle(`La partie commence !`, 2));
         this.round()
     }
 
-    end(){
+    end(): void {
         var deadPlayer = checkIfPlayerIsDead(this.players);
-        if(deadPlayer != false){
+        if (deadPlayer != false) {
             return console.log(setCmdTitle(`La partie est terminé ! ${deadPlayer.name} est mort`, 2));
-        }else{
+        } else {
             return console.log(setCmdTitle(`La partie est terminé, une erreur est survenue`, 2));
         }
     }
 
-    async round() :Promise<void>{
-        console.log(setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1))
+    async round(): Promise<void> {
+        console.log(setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1));
         this.roundNumber++;
         await this.currentPlayer.play(this.nextPlayer.champion).then(() => {
-            if(!checkIfPlayerIsDead(this.players)){
+            if (!checkIfPlayerIsDead(this.players)) {
                 this.switchPlayer();
-                this.round()
-            }else{
+                this.round();
+            } else {
                 return this.end();
             }
-        })
+        });
     }
 
-    switchPlayer(){
+    switchPlayer(): void {
         var tmpChampion = this.currentPlayer;
         this.currentPlayer = this.nextPlayer;
         this.nextPlayer = tmpChampion;
     }
 }
 
-function checkIfPlayerIsDead(players: Array<Player>){
+function checkIfPlayerIsDead(players: Array<Player>): false|Player {
     for (const player of players) {
-        if(player.champion.isDead()){
-            return player
+        if (player.champion.isDead()) {
+            return player;
         }
     }
     return false;
 }
 
-function setCmdTitle(text: string, size?: number): string{
+function setCmdTitle(text: string, size?: number): string {
     switch(size){
         case 1: 
-            return `----------------------------\n${text}\n----------------------------`
+            return `----------------------------\n${text}\n----------------------------`;
         case 2: 
-            return `----------------------------\n\n${text}\n\n----------------------------`
+            return `----------------------------\n\n${text}\n\n----------------------------`;
         default:
-            return `--------------\n${text}\n--------------`
+            return `--------------\n${text}\n--------------`;
     } 
 }
