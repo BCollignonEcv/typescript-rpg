@@ -8,22 +8,22 @@ import IPlayer from "./player.interface";
 const inquirer = require('inquirer');
 
 
-export default class Player implements IPlayer{
+export default class Player implements IPlayer {
     name: string = "";
     order: number;
     champion: Champion = new Champion();
 
-    constructor(order: number){
+    constructor (order: number) {
         this.order = order;
     }
 
-    async setPlayer() :Promise<void>{
+    async setPlayer() :Promise<void> {
         await this.setName().then(async () => { 
             await this.setChampion(); 
         });
     }
 
-    async play(enemy: Champion): Promise<void | string>{
+    async play(enemy: Champion): Promise<void|string> {
         await inquirer
             .prompt([
                 {
@@ -51,7 +51,7 @@ export default class Player implements IPlayer{
             });
     }
 
-    async setName() :Promise<void>{
+    async setName() :Promise<void> {
         await inquirer
             .prompt([
                 {
@@ -64,7 +64,7 @@ export default class Player implements IPlayer{
             });
     }
 
-    async setChampion() :Promise<void>{
+    async setChampion() :Promise<void> {
         await inquirer
             .prompt([
                 {
