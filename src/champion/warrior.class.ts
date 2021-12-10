@@ -15,7 +15,7 @@ export default class Warrior extends Champion {
       if(this.isDying(damage)){
           this.health = 0;
       } else {
-        this.health -= damage;
+        this.health = this.health - damage;
       }
   }
 
