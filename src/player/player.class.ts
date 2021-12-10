@@ -94,9 +94,9 @@ export default class Player implements IPlayer {
         return PlayerColor.First;
     }
 }
-const StringIsNumber = (value: any) => (isNaN(Number(value)) === false);
+const StringIsNumber = (value: any): boolean => (isNaN(Number(value)) === false);
 
-function ToArray(enumme : any) {
+function ToArray(enumme : any): Object {
     return Object.keys(enumme)
         .filter(StringIsNumber)
         .map(key => enumme[key]);
