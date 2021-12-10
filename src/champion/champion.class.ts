@@ -2,7 +2,7 @@ import IChampion from "./champion.interface";
 import { ChampionType } from "./championtype.enum";
 
 
-export default class Champion implements IChampion{
+export default class Champion implements IChampion {
     health: number;
     protection: boolean = false;
     attackDamage: number;
@@ -28,36 +28,36 @@ export default class Champion implements IChampion{
         return;
     }
 
-    isProtected() :boolean{
+    isProtected() :boolean {
         return this.protection;
     }
 
-    isDying(damage: number): boolean{
-        if(this.health - damage <= 0){
+    isDying(damage: number): boolean {
+        if (this.health - damage <= 0) {
             this.dead = true;
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    isDead(): boolean{
+    isDead(): boolean {
         return this.dead;
     }
 
-    isAttacked(damage: number): void{
-        if(this.isProtected()){
+    isAttacked(damage: number): void {
+        if (this.isProtected()) {
             damage = damage / 2;
             this.protection = false;
         }
-        if(this.isDying(damage)){
+        if (this.isDying(damage)) {
             this.health = 0;
         } else {
             this.health = this.health - damage;
         }
     }
 
-    isType(): ChampionType{
+    isType(): ChampionType {
         return ChampionType.Warrior;
     }
 }

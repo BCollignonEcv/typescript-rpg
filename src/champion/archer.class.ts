@@ -8,11 +8,11 @@ export default class Archer extends Champion {
   }
 
   setAttack(enemy: Champion): void {
-      enemy.isAttacked(this.attackDamage)
-      enemy.isAttacked(this.attackDamage)
+      enemy.isAttacked(this.attackDamage);
+      enemy.isAttacked(this.attackDamage);
   } 
 
-  isType(){
+  isType(): ChampionType {
       return ChampionType.Archer;
   }
 }
