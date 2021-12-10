@@ -30,10 +30,6 @@ export default class Champion implements IChampion{
         return this.protection;
     }
 
-    isDead(): boolean{
-        return this.dead;
-    }
-
     isDying(damage: number): boolean{
         if(this.health - damage <= 0){
             this.dead = true;
@@ -41,6 +37,10 @@ export default class Champion implements IChampion{
         }else{
             return false;
         }
+    }
+
+    isDead(): boolean{
+        return this.dead;
     }
 
     isAttacked(damage: number): void{
