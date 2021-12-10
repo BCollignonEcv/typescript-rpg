@@ -5,6 +5,7 @@ import {ChampionActionType} from "../champion/championActionType.enum";
 import Warrior from "../champion/warrior.class";
 import Witcher from "../champion/witcher.class";
 import IPlayer from "./player.interface";
+import { PlayerColor } from "./playercolor.enum";
 const inquirer = require('inquirer');
 
 
@@ -87,6 +88,10 @@ export default class Player implements IPlayer {
                         break;
                 } 
             });
+    }
+
+    setColor(): PlayerColor {
+        return PlayerColor.First;
     }
 }
 const StringIsNumber = (value: any) => (isNaN(Number(value)) === false);

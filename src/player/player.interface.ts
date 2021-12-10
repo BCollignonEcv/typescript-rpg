@@ -1,4 +1,5 @@
 import Champion from "../champion/champion.class";
+import { PlayerColor } from "./playercolor.enum";
 
 
 export default interface Iplayer {
@@ -6,4 +7,5 @@ export default interface Iplayer {
     setName() :Promise<void>;
     setChampion() :Promise<void>;
     play(enemy: Champion): Promise<void | string>;
+    setColor(): PlayerColor;
 }
