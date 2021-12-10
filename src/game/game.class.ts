@@ -20,7 +20,8 @@ export default class {
         this.pos = PlayerColor.First;
         this.initGame().then( async() => {
             for (const [index, player] of this.players.entries()) {
-                console.log(setCmdTitle(`Joueur ${index + 1}`))
+                console.log(this.pos, setCmdTitle(`Joueur ${index + 1}`))
+                this.setColor();
                 await player.setPlayer();  
             }
             this.start();
