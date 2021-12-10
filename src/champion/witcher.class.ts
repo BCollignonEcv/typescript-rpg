@@ -11,7 +11,7 @@ export default class Witcher extends Champion {
     this.health += 20;
   }
 
-  isType(){
+  isType(): ChampionType {
       return ChampionType.Witcher;
   }
 }
