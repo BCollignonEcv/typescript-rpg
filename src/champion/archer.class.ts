@@ -4,7 +4,7 @@ import { ChampionType } from "./championtype.enum";
 export default class Archer extends Champion {
 
   constructor() {
-    super(80, 20)
+    super(100, 20)
   }
 
   setAttack(enemy: Champion): void {
