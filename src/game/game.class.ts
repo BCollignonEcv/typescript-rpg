@@ -1,6 +1,6 @@
 import Player from "../player/player.class";
+import { PlayerColor } from "../player/playercolor.enum";
 const inquirer = require('inquirer');
-
 
 
 export default class{
@@ -9,12 +9,14 @@ export default class{
     currentPlayer: Player;
     nextPlayer: Player;
     roundNumber: number;
+    pos: PlayerColor;
 
     constructor(){
         this.players = [new Player(1), new Player(2)];
         this.currentPlayer = this.players[0];
         this.nextPlayer = this.players[1];
         this.roundNumber = 0;
+        this.pos = PlayerColor.First;
         this.initGame().then( async() => {
             for (const [index, player] of this.players.entries()) {
                 console.log(setCmdTitle(`Joueur ${index + 1}`))
@@ -38,7 +40,7 @@ export default class{
     }
 
     start() :void{
-        console.log(setCmdTitle(`La partie commence !`, 2));
+        console.log('\x1b[33m%s\x1b[0m', setCmdTitle(`La partie commence !`, 2));
         this.round()
     }
 
@@ -52,16 +54,25 @@ export default class{
     }
 
     async round() :Promise<void>{
-        console.log(setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1))
+        console.log(this.pos, setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1))
         this.roundNumber++;
         await this.currentPlayer.play(this.nextPlayer.champion).then(() => {
             if(!checkIfPlayerIsDead(this.players)){
                 this.switchPlayer();
+                this.setColor();
                 this.round()
             }else{
                 return this.end();
             }
         })
+    }
+    
+    setColor() {
+        if (this.pos == PlayerColor.First) {
+            this.pos = PlayerColor.Second;
+        } else if (this.pos == PlayerColor.Second) {
+            this.pos = PlayerColor.First;
+        }
     }
 
     switchPlayer(){
