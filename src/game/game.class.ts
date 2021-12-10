@@ -10,18 +10,15 @@ export default class {
     currentPlayer: Player;
     nextPlayer: Player;
     roundNumber: number;
-    pos: PlayerColor;
 
     constructor(){
         this.players = [new Player(1), new Player(2)];
         this.currentPlayer = this.players[0];
         this.nextPlayer = this.players[1];
         this.roundNumber = 0;
-        this.pos = PlayerColor.First;
         this.initGame().then( async() => {
             for (const [index, player] of this.players.entries()) {
-                console.log(this.pos, setCmdTitle(`Joueur ${index + 1}`))
-                this.setColor();
+                console.log(player.color, setCmdTitle(`Joueur ${index + 1}`));
                 await player.setPlayer();  
             }
             this.start();
@@ -56,25 +53,16 @@ export default class {
     }
 
     async round(): Promise<void> {
-        console.log(this.pos, setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1));
+        console.log(this.currentPlayer.color, setCmdTitle(`${this.currentPlayer.name} | Vie : ${this.currentPlayer.champion.health}`, 1));
         this.roundNumber++;
         await this.currentPlayer.play(this.nextPlayer.champion).then(() => {
             if (!checkIfPlayerIsDead(this.players)) {
                 this.switchPlayer();
-                this.setColor();
                 this.round()
             }else{
                 return this.end();
             }
         });
-    }
-    
-    setColor() {
-        if (this.pos == PlayerColor.First) {
-            this.pos = PlayerColor.Second;
-        } else if (this.pos == PlayerColor.Second) {
-            this.pos = PlayerColor.First;
-        }
     }
 
     switchPlayer(): void {

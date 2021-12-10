@@ -13,9 +13,11 @@ export default class Player implements IPlayer {
     name: string = "";
     order: number;
     champion: Champion = new Champion();
+    color: string;
 
     constructor (order: number) {
         this.order = order;
+        this.color = Object.values(PlayerColor)[order-1];
     }
 
     async setPlayer() :Promise<void> {
@@ -90,9 +92,6 @@ export default class Player implements IPlayer {
             });
     }
 
-    setColor(): PlayerColor {
-        return PlayerColor.First;
-    }
 }
 const StringIsNumber = (value: any): boolean => (isNaN(Number(value)) === false);
 

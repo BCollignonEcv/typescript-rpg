@@ -7,5 +7,4 @@ export default interface Iplayer {
     setName() :Promise<void>;
     setChampion() :Promise<void>;
     play(enemy: Champion): Promise<void | string>;
-    setColor(): PlayerColor;
 }
