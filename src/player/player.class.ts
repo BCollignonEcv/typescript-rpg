@@ -28,7 +28,7 @@ export default class Player implements IPlayer{
             .prompt([
                 {
                 type: 'list',
-                name: 'action',
+                name: 'Quelle action veux-tu réaliser ?',
                 choices: ToArray(ChampionActionType),
                 },
             ])

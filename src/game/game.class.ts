@@ -1,10 +1,9 @@
 import Player from "../player/player.class";
-import IGame from "./game.interface";
 const inquirer = require('inquirer');
 
 
 
-export default class Game implements IGame{
+export default class{
     gameName: String = "";
     players: Array<Player>;
     currentPlayer: Player;
