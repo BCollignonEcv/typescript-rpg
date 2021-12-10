@@ -6,6 +6,9 @@
 - Baptiste COLLIGNON
 
 ## How it work's
+
+- Install
+    `npm i`
 - Run
     `npm run dev`
 - Test
